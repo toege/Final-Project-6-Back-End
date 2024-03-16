@@ -17,15 +17,13 @@ public class Workout {
     private int id;
 
     @Column(name = "workoutName")
-    private String muscleName;
+    private String workoutName;
 
     @Column(name = "description")
-    private String muscleGroup;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "muscle_id", referencedColumnName = "id")
     @JsonIncludeProperties(value = {"id", "muscleName", "muscleGroup"})
     private Muscle muscle;
-
-
 }

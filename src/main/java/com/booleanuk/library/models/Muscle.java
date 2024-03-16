@@ -1,11 +1,13 @@
 package com.booleanuk.library.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,12 +26,7 @@ public class Muscle {
     private String muscleGroup;
 
     @OneToMany(mappedBy = "muscle", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIncludeProperties(value = {"id", "muscleName", "muscleGroup"})
-    private Set<Workout> workouts = new HashSet<>();
+    @JsonIncludeProperties(value = {"id", "workoutName", "description"})
+    private List<Workout> workouts;
 
-    public Muscle(int id, String muscleName, String muscleGroup) {
-        this.id = id;
-        this.muscleName = muscleName;
-        this.muscleGroup = muscleGroup;
-    }
 }
