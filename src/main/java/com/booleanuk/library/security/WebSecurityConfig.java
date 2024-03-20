@@ -67,7 +67,7 @@ public class WebSecurityConfig {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/users", "/users/**", "/items", "/items/**","/loan", "/loan/**","/muscles", "/muscles/**","/workouts", "/workouts/**").authenticated()
+                        .requestMatchers("/users", "/users/**", "/muscles", "/muscles/**", "/workouts", "/workouts/**", "/workoutplans", "/workoutplans/**", "/logs", "/logs/**", "/exercises", "/exercises/**","/reps", "/reps/**").authenticated()
                 );
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(),

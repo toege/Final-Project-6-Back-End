@@ -1,8 +1,14 @@
+DELETE from exercises;
+DELETE from workoutplans;
 DELETE FROM user_roles;
+DELETE from logs;
 DELETE FROM users;
 DELETE FROM roles;
 DELETE FROM workouts;
 DELETE FROM muscles;
+
+
+
 
 
 INSERT INTO roles
