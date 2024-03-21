@@ -61,6 +61,7 @@ public class ExerciseController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         Exercise ticket = new Exercise();
         ticket.setWorkoutplan(plan);
+        ticket.setWorkoutName(request.getWorkoutName());
         ticket.setSets(request.getSets());
         ticket.setExpectedSets(request.getExpectedSets());
         ticket.setExpectedReps(request.getExpectedReps());

@@ -51,6 +51,32 @@ public class UserController {
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Response<?>> updateUser(@PathVariable int id, @RequestBody User userDetails) {
+        User existingUser = userRepository.findById(id).orElse(null);
+        if (existingUser == null) {
+            ErrorResponse error = new ErrorResponse();
+            error.set("User not found");
+            return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        }
+        existingUser.setUsername(userDetails.getUsername());
+        existingUser.setEmail(userDetails.getEmail());
+        existingUser.setPassword(existingUser.getPassword());
+        existingUser.setRoles(existingUser.getRoles());
+        existingUser.setLogs(existingUser.getLogs());
+
+        UserResponse userResponse = new UserResponse();
+        try {
+            userResponse.set(userRepository.save(existingUser));
+        } catch (Exception e) {
+            ErrorResponse error = new ErrorResponse();
+            error.set("Error updating user: " + e.getMessage());
+            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(userResponse);
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<?>> deleteUser(@PathVariable int id) {
         User user = userRepository.findById(id).orElse(null);

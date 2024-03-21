@@ -84,7 +84,6 @@ public class WorkoutPlanController {
         WorkoutPlan newWorkoutPlan = new WorkoutPlan();
         newWorkoutPlan.setLog(log);
         newWorkoutPlan.setNotes(request.getNotes());
-        // Assuming you might also want to copy other fields from the request to the new entity
         newWorkoutPlan.setExercises(request.getExercises()); // Handle with care, see notes below
 
         WorkoutPlan savedWorkoutPlan = workoutPlanRepository.save(newWorkoutPlan);

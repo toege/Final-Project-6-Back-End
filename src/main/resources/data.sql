@@ -1,15 +1,13 @@
-DELETE from exercises;
-DELETE from workoutplans;
-DELETE FROM user_roles;
-DELETE from logs;
-DELETE FROM users;
-DELETE FROM roles;
+DELETE FROM reps;
+DELETE FROM exercises;
+DELETE FROM workoutplans;
+DELETE FROM logs;
 DELETE FROM workouts;
 DELETE FROM muscles;
-
-
-
-
+-- If managing user_roles manually:
+DELETE FROM user_roles;
+DELETE FROM users;
+DELETE FROM roles;
 
 INSERT INTO roles
 (name)

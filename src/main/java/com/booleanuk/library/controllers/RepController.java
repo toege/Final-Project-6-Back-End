@@ -60,16 +60,17 @@ public class RepController {
     @PostMapping("exercise/{exerciseId}")
     public ResponseEntity<Response<?>> createTicket(@PathVariable int exerciseId, @RequestBody Rep request) {
         Exercise exercise = exerciseRepository.findById(exerciseId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exercise not found"));
         Rep ticket = new Rep();
         ticket.setExercise(exercise);
         ticket.setReps(request.getReps());
-        ticket.setReps(request.getWeight());
+        ticket.setWeight(request.getWeight()); // This is the corrected line
         Rep savedTicket = repRepository.save(ticket);
         RepResponse logResponse = new RepResponse();
         logResponse.set(savedTicket);
         return new ResponseEntity<>(logResponse, HttpStatus.CREATED);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Response<?>> updateItem(@PathVariable int id, @RequestBody Rep itemDetails) {
         Rep item = repRepository.findById(id).orElse(null);
@@ -81,7 +82,6 @@ public class RepController {
         // Update item details
         item.setReps(itemDetails.getReps());
         item.setWeight(itemDetails.getWeight());
-        // You might need to set other properties, depending on the design of your Exercise entity
         RepResponse itemResponse = new RepResponse();
         try {
             itemResponse.set(repRepository.save(item));
