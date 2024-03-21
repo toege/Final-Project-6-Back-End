@@ -27,12 +27,12 @@ public class LogController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<LogListResponse> getByUserId(@PathVariable int userId) {
-        LogListResponse response = new LogListResponse();
-        response.set(logRepository.findByUserId(userId));
-        return ResponseEntity.ok(response);
-    }
+//    @GetMapping("/user/{userId}")
+//    public ResponseEntity<LogListResponse> getByUserId(@PathVariable int userId) {
+//        LogListResponse response = new LogListResponse();
+//        response.set(logRepository.findByUserId(userId));
+//        return ResponseEntity.ok(response);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<?>> getById(@PathVariable int id) {
@@ -47,7 +47,6 @@ public class LogController {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         Log ticket = new Log();
-        ticket.setUser(user);
         ticket.setLogDat(request.getLogDat());
         Log savedTicket = logRepository.save(ticket);
         LogResponse logResponse = new LogResponse();

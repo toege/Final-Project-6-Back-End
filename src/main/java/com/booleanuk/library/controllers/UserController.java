@@ -63,7 +63,7 @@ public class UserController {
         existingUser.setEmail(userDetails.getEmail());
         existingUser.setPassword(existingUser.getPassword());
         existingUser.setRoles(existingUser.getRoles());
-        existingUser.setLogs(existingUser.getLogs());
+        existingUser.setWorkoutplans(existingUser.getWorkoutplans());
 
         UserResponse userResponse = new UserResponse();
         try {

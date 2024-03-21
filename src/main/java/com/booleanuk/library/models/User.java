@@ -42,9 +42,13 @@ public class User {
 //    @JsonIncludeProperties(value = {"id", "username", "email"})
 //    private Log log;
 
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIncludeProperties(value = {"id", "logDat"})
+//    private List<Log> logs;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIncludeProperties(value = {"id", "logDat"})
-    private List<Log> logs;
+    @JsonIncludeProperties(value = {"id", "logDat", "notes"})
+    private List<WorkoutPlan> workoutplans;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",

@@ -62,7 +62,7 @@ public class RepController {
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Exercise not found"));
         Rep ticket = new Rep();
-        ticket.setExercise(exercise);
+//        ticket.setExercise(exercise);
         ticket.setReps(request.getReps());
         ticket.setWeight(request.getWeight()); // This is the corrected line
         Rep savedTicket = repRepository.save(ticket);

@@ -17,13 +17,13 @@ public class Log {
     @Column(name = "logDat")
     private LocalDateTime logDat;
 
-    @OneToMany(mappedBy = "log", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIncludeProperties(value = {"id", "notes"})
-    private List<WorkoutPlan> workoutPlans;
+//    @OneToMany(mappedBy = "log", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIncludeProperties(value = {"id", "notes"})
+//    private List<WorkoutPlan> workoutPlans;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIncludeProperties(value = {"id", "username", "email"})
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id", referencedColumnName = "id")
+//    @JsonIncludeProperties(value = {"id", "username", "email"})
+//    private User user;
 
 }

@@ -20,14 +20,14 @@ public class Rep {
     @Column(name = "weight")
     private String weight;
 
-    @ManyToOne
-    @JoinColumn(name = "exercise_id")
-    @JsonIncludeProperties(value = {"id", "workoutName", "sets", "expectedReps", "expectedSets"})
-    private Exercise exercise;
+//    @ManyToOne
+//    @JoinColumn(name = "exercise_id")
+//    @JsonIncludeProperties(value = {"id", "workoutName", "sets", "expectedReps", "expectedSets"})
+//    private Exercise exercise;
 
     public Rep(String reps, String weight, Exercise exercise) {
         this.reps = reps;
         this.weight = weight;
-        this.exercise = exercise;
+//        this.exercise = exercise;
     }
 }
