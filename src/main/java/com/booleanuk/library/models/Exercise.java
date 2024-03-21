@@ -2,9 +2,11 @@ package com.booleanuk.library.models;
 
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.persistence.*;
+import jdk.swing.interop.LightweightContentWrapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,9 +27,16 @@ public class Exercise {
     @Column(name = "expectedSets")
     private String expectedSets;
 
-    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIncludeProperties(value = {"id", "reps", "weight"})
-    private List<Rep> reps;
+    @Column(name = "reps")
+    private ArrayList<String> reps;
+
+    @Column(name = "weight")
+    private ArrayList<String> weight;
+
+//
+//    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIncludeProperties(value = {"id", "reps", "weight"})
+//    private List<Rep> reps;
 
     @ManyToOne
     @JoinColumn(name = "workoutplan_id", referencedColumnName = "id")
