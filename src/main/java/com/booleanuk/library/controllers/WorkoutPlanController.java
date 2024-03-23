@@ -31,6 +31,44 @@ public class WorkoutPlanController {
 
     @Autowired
     private LogRepository logRepository;
+
+
+    // Constructor injection is recommended
+    public WorkoutPlanController(UserRepository userRepository, WorkoutPlanRepository workoutPlanRepository) {
+        this.userRepository = userRepository;
+        this.workoutPlanRepository = workoutPlanRepository;
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Map<String, Object>>> getWorkoutPlansByUser(@PathVariable int userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        List<WorkoutPlan> workoutPlans = workoutPlanRepository.findByUser(user);
+
+        List<Map<String, Object>> workoutPlansDetailsList = workoutPlans.stream().map(workoutPlan -> {
+            Map<String, Object> workoutPlanDetails = new HashMap<>();
+            workoutPlanDetails.put("id", workoutPlan.getId());
+            workoutPlanDetails.put("logDat", workoutPlan.getLogDat());
+            workoutPlanDetails.put("notes", workoutPlan.getNotes());
+
+            List<Map<String, Object>> exercisesList = workoutPlan.getExercises().stream().map(exercise -> {
+                Map<String, Object> exerciseDetails = new HashMap<>();
+                exerciseDetails.put("id", exercise.getId());
+                exerciseDetails.put("workoutName", exercise.getWorkoutName());
+                exerciseDetails.put("sets", exercise.getSets());
+                exerciseDetails.put("expectedReps", exercise.getExpectedReps());
+                exerciseDetails.put("expectedSets", exercise.getExpectedSets());
+                exerciseDetails.put("reps", exercise.getReps());
+                exerciseDetails.put("weight", exercise.getWeight());
+                return exerciseDetails;
+            }).collect(Collectors.toList());
+            workoutPlanDetails.put("exercises", exercisesList);
+            return workoutPlanDetails;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(workoutPlansDetailsList);
+    }
+
     @GetMapping
     public ResponseEntity<WorkoutPlanListResponse> getAll() {
         WorkoutPlanListResponse response = new WorkoutPlanListResponse();
@@ -38,33 +76,6 @@ public class WorkoutPlanController {
         return ResponseEntity.ok(response);
     }
 
-
-    private final WorkoutPlanService workoutPlanService;
-    private final UserService userService;
-
-    @Autowired
-    public WorkoutPlanController(WorkoutPlanService workoutPlanService, UserService userService) {
-        this.workoutPlanService = workoutPlanService;
-        this.userService = userService;
-    }
-
-//    @GetMapping("user/{userId}")
-//    public ResponseEntity<WorkoutPlanListResponse> getTicketById(@PathVariable int userId) {
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
-//
-//        List<Map<String, Object>> ticketDetailsList = tickets.stream().map(ticket -> {
-//            Map<String, Object> ticketDetails = new HashMap<>();
-//            ticketDetails.put("id", ticket.getId());
-//            ticketDetails.put("numSeats", ticket.getNumSeats());
-//            ticketDetails.put("createdAt", ticket.getCreatedAt());
-//            ticketDetails.put("updatedAt", ticket.getUpdatedAt());
-//            return ticketDetails;
-//        }).collect(Collectors.toList());
-//
-//        DataStatus response = new DataStatus("success", ticketDetailsList);
-//        return ResponseEntity.ok(response);
-//    }
     @PostMapping("user/{userId}")
     public ResponseEntity<WorkoutPlan> addWorkoutPlanToUser(@PathVariable int userId, @RequestBody WorkoutPlan request) {
         User user = userRepository.findById(userId)

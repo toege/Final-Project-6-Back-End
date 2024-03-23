@@ -60,11 +60,13 @@ public class ExerciseController {
         WorkoutPlan plan = workoutPlanRepository.findById(workoutplanId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
         Exercise ticket = new Exercise();
-//        ticket.setWorkoutplan(plan);
+        ticket.setWorkoutplan(plan);
         ticket.setWorkoutName(request.getWorkoutName());
         ticket.setSets(request.getSets());
         ticket.setExpectedSets(request.getExpectedSets());
         ticket.setExpectedReps(request.getExpectedReps());
+        ticket.setReps(request.getReps());
+        ticket.setWeight(request.getWeight());
         Exercise savedTicket = exerciseRepository.save(ticket);
         ExerciseResponse logResponse = new ExerciseResponse();
         logResponse.set(savedTicket);

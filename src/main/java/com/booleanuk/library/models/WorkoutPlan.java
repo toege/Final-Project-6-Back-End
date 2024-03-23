@@ -25,15 +25,8 @@ public class WorkoutPlan {
     @Column(name = "notes")
     private String notes;
 
-//    @ElementCollection
-//    @Column(name = "exercises")
-//    private ArrayList<Exercise> exercises;
 
-//    public WorkoutPlan(ArrayList<Exercise> exercises) {
-//        this.exercises = new ArrayList<>();
-//    }
-
-        @OneToMany(mappedBy = "workoutplan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "workoutplan", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIncludeProperties(value = {"id", "workoutName", "reps", "sets", "expectedReps", "expectedSets", "weight"})
     private List<Exercise> exercises;
 

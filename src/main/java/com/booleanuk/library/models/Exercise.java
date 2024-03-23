@@ -32,22 +32,16 @@ public class Exercise {
 
     @Column(name = "weight")
     private ArrayList<String> weight;
-//    public Exercise(String workoutName, String sets, String expectedReps, String expectedSets, ArrayList<String> reps, ArrayList<String> weight) {
-//        this.workoutName = workoutName;
-//        this.sets = sets;
-//        this.expectedReps = expectedReps;
-//        this.expectedSets = expectedSets;
-//        this.reps = reps;
-//        this.weight = weight;
-//    }
 
-//
-//    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonIncludeProperties(value = {"id", "reps", "weight"})
-//    private List<Rep> reps;
-//
+
     @ManyToOne
     @JoinColumn(name = "workoutplan_id", referencedColumnName = "id")
     @JsonIncludeProperties(value = {"id", "notes", "logData"})
     private WorkoutPlan workoutplan;
+
+    //
+//    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIncludeProperties(value = {"id", "reps", "weight"})
+//    private List<Rep> reps;
+//
 }
